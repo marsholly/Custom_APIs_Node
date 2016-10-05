@@ -3,7 +3,10 @@ const PORT = 8000;
 const http = require('http');
 const qs = require('queryString');
 
-const MathPart = require('./MathPart');
+const MathPart = require('./tools/MathPart');
+const Gravatar = require('./tools/Gravatar');
+const Sentence = require('./tools/Sentence');
+const Age = require('./tools/age');
 
 const server = http.createServer((req, res) => {
   let { url, method } = req;
@@ -14,14 +17,33 @@ const server = http.createServer((req, res) => {
   switch (method) {
     case 'GET':
       switch (path) {
-        //  GET to /math?add=40/16
+        // GET to /math?add=40/16
         case '/math':
           //query: { add: '40/16' }
           result = MathPart(query);
-          res.write(`${result}`);
-          res.end('\n');
           break;
+
+         // GET to /gravatar?email=c@codinghouse.co
+        case '/gravatar':
+          //query: {email: 'c@codinghouse.co'}
+          result = Gravatar(query);
+          break;
+
+        // GET to /sentence?analyzer=How are you
+        case '/sentence':
+          //query: { analyzer: 'How are you' }
+          result = Sentence(query);
+          break;
+
+        // GET to /age?birthdate=1/2/2001
+        case '/age':
+          //query: {age: '1/2/2001'}
+          result = Age(query);
+          break;
+
       }
+      res.write(`${result}`);
+      res.end('\n');
       break;
     default:
       res.statusCode = 404;
