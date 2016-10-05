@@ -37,7 +37,7 @@ const server = http.createServer((req, res) => {
 
         // GET to /age?birthdate=1/2/2001
         case '/age':
-          //query: {age: '1/2/2001'}
+          //query: {birthdate: '1/2/2001'}
           result = Age(query);
           break;
 
