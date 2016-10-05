@@ -6,7 +6,8 @@ const qs = require('queryString');
 const MathPart = require('./tools/MathPart');
 const Gravatar = require('./tools/Gravatar');
 const Sentence = require('./tools/Sentence');
-const Age = require('./tools/age');
+const Age = require('./tools/Age');
+const Dictionary = require('./tools/Dictionary');
 
 const server = http.createServer((req, res) => {
   let { url, method } = req;
@@ -41,9 +42,16 @@ const server = http.createServer((req, res) => {
           result = Age(query);
           break;
 
+        // GET to /dictionary?word=world
+        case '/dictionary':
+          //query: {word: 'world'}
+          Dictionary(query, res);
+          break;
       }
-      res.write(`${result}`);
-      res.end('\n');
+      if(result) {
+        res.write(result);
+        res.end('\n');
+      }
       break;
     default:
       res.statusCode = 404;

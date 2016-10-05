@@ -27,6 +27,6 @@ const MathPart = (query) => {
       result = Math.pow(number_1, number_2);
       break;
   }
-  return result;
+  return result.toString();
 }
 module.exports = MathPart;
